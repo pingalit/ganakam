@@ -1,0 +1,37 @@
+appId: com.pingalit.ganakam
+productName: Ganakam
+copyright: Copyright © 2026 pingalit
+
+directories:
+  buildResources: build
+  output: dist
+
+files:
+  - out/**/*
+  - "!**/*.map"
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  artifactName: "${productName}-${version}-setup.${ext}"
+
+mac:
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+  artifactName: "${productName}-${version}.${ext}"
+  category: public.app-category.finance
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+
+dmg:
+  createDesktopShortcut: true
+
+# Publish to GitHub Releases (used by electron-updater)
+publish:
+  provider: github
+  owner: pingalit
+  repo: ganakam
