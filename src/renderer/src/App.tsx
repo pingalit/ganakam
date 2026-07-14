@@ -3,6 +3,7 @@ import { HashRouter, Routes, Route, NavLink } from 'react-router-dom'
 import { Calculator, Users, Clock, Settings } from 'lucide-react'
 import { useSettingsStore } from '@renderer/store/settingsStore'
 import { useCalculatorStore } from '@renderer/store/calculatorStore'
+import { UpdateBanner } from '@renderer/components/UpdateBanner'
 import HomePage from '@renderer/pages/Home'
 import BulkPage from '@renderer/pages/Bulk'
 import HistoryPage from '@renderer/pages/History'
@@ -58,6 +59,9 @@ export default function App() {
           </Routes>
         </main>
       </div>
+
+      {/* OTA update notification — only shows when an update is available */}
+      <UpdateBanner />
     </HashRouter>
   )
 }

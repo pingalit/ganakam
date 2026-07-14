@@ -18,7 +18,9 @@ win:
 
 mac:
   target:
-    - target: dmg
+    - target: dmg   # initial install
+      arch: [x64, arm64]
+    - target: zip   # required for electron-updater OTA on macOS
       arch: [x64, arm64]
   artifactName: "${productName}-${version}.${ext}"
   category: public.app-category.finance

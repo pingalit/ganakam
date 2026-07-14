@@ -30,6 +30,20 @@ const api = {
     saveCSV: (opts: { defaultPath: string; content: string }) =>
       ipcRenderer.invoke('file:saveCSV', opts)
   },
+  updater: {
+    install: () => ipcRenderer.invoke('updater:install'),
+    check:   () => ipcRenderer.invoke('updater:check')
+  },
+  // Subscribe to updater events from main process
+  onUpdaterEvent: (callback: (event: string, data: unknown) => void) => {
+    const events = [
+      'updater:checking', 'updater:available', 'updater:not-available',
+      'updater:progress', 'updater:downloaded', 'updater:error'
+    ]
+    events.forEach(ch => {
+      ipcRenderer.on(ch, (_, data) => callback(ch.replace('updater:', ''), data))
+    })
+  },
   isElectron: true as const
 }
 
