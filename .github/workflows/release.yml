@@ -1,0 +1,41 @@
+name: Release
+
+# Triggers when you push a version tag: git tag v1.0.0 && git push origin v1.0.0
+on:
+  push:
+    tags:
+      - 'v*'
+
+# Allow the workflow to create GitHub Releases and upload assets
+permissions:
+  contents: write
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: win
+          - os: macos-latest
+            platform: mac
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and publish
+        env:
+          # GITHUB_TOKEN is auto-provided — no manual secret needed
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run release:${{ matrix.platform }}
