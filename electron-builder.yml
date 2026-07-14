@@ -30,7 +30,9 @@ nsis:
   allowToChangeInstallationDirectory: true
 
 dmg:
-  createDesktopShortcut: true
+  window:
+    width: 540
+    height: 380
 
 # Publish to GitHub Releases (used by electron-updater)
 publish:
