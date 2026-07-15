@@ -18,6 +18,7 @@ export function UpdateBanner() {
   const [dismissed, setDismissed] = useState(false)
 
   useEffect(() => {
+    if (!isElectron) return
     ;(window as any).api.onUpdaterEvent((event: string, data: any) => {
       switch (event) {
         case 'available':     setState({ status: 'available',   info: data });             break
