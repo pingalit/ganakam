@@ -38,6 +38,9 @@ function createWindow(): void {
 }
 
 app.whenReady().then(() => {
+  // Suppress harmless Chromium GPU cache permission warnings on Windows
+  app.commandLine.appendSwitch('disable-gpu-shader-disk-cache')
+
   registerStoreHandlers()
   registerFileHandlers()
   registerUpdateHandlers()

@@ -31,4 +31,15 @@ export function registerFileHandlers(): void {
     await writeFile(filePath, opts.content, 'utf-8')
     return filePath
   })
+
+  // Generic binary file save — used for Excel (.xlsx) and ZIP exports
+  ipcMain.handle('file:saveBuffer', async (_, opts: { defaultPath: string; buffer: number[]; filters?: { name: string; extensions: string[] }[] }) => {
+    const { filePath, canceled } = await dialog.showSaveDialog({
+      defaultPath: opts.defaultPath,
+      filters: opts.filters ?? [{ name: 'File', extensions: ['*'] }]
+    })
+    if (canceled || !filePath) return null
+    await writeFile(filePath, Buffer.from(opts.buffer))
+    return filePath
+  })
 }
