@@ -19,10 +19,8 @@ win:
 mac:
   target:
     - target: dmg   # initial install
-      arch: [x64, arm64]
     - target: zip   # required for electron-updater OTA on macOS
-      arch: [x64, arm64]
-  artifactName: "${productName}-${version}.${ext}"
+  artifactName: "${productName}-${version}-${arch}.${ext}"
   category: public.app-category.finance
 
 nsis:
@@ -39,3 +37,4 @@ publish:
   provider: github
   owner: pingalit
   repo: ganakam
+  releaseType: release
