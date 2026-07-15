@@ -50,7 +50,9 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm run build && npx electron-builder --mac --publish never
+      # macos-latest is arm64 (Apple Silicon). Build arm64-only to avoid
+      # hdiutil failures when cross-compiling x64 DMG on an arm64 runner.
+      - run: npm run build && npx electron-builder --mac --arm64 --publish never
       - uses: actions/upload-artifact@v4
         with:
           name: ganakam-mac-${{ github.sha }}
