@@ -28,7 +28,9 @@ const api = {
     openCSV: () =>
       ipcRenderer.invoke('file:openCSV'),
     saveCSV: (opts: { defaultPath: string; content: string }) =>
-      ipcRenderer.invoke('file:saveCSV', opts)
+      ipcRenderer.invoke('file:saveCSV', opts),
+    saveBuffer: (opts: { defaultPath: string; buffer: number[]; filters?: { name: string; extensions: string[] }[] }) =>
+      ipcRenderer.invoke('file:saveBuffer', opts)
   },
   updater: {
     install: () => ipcRenderer.invoke('updater:install'),
