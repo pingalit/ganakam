@@ -61,6 +61,14 @@ function registerUpdateHandlers(): void {
   autoUpdater.autoDownload = true          // download silently in background
   autoUpdater.autoInstallOnAppQuit = true  // install when user quits
 
+  // For private GitHub repos: release assets require authentication.
+  // Set GANAKAM_GH_TOKEN at build time via electron-builder's extraMetadata,
+  // or embed a read-only fine-grained PAT scoped only to release asset downloads.
+  // For public repos this block is not needed.
+  if (process.env['GH_TOKEN']) {
+    autoUpdater.requestHeaders = { Authorization: `token ${process.env['GH_TOKEN']}` }
+  }
+
   // Forward update events to the renderer so the UI can show a notification
   const send = (event: string, data?: unknown) => {
     BrowserWindow.getAllWindows().forEach(w =>

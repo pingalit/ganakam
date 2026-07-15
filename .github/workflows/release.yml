@@ -7,6 +7,7 @@ on:
       - 'v*'
 
 # Allow the workflow to create GitHub Releases and upload assets
+# GITHUB_TOKEN is provided automatically — no manual secret needed
 permissions:
   contents: write
 

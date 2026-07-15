@@ -30,7 +30,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm run dist:win
+      - run: npm run build && npx electron-builder --win --publish never
       - uses: actions/upload-artifact@v4
         with:
           name: ganakam-windows-${{ github.sha }}
@@ -50,7 +50,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: npm run dist:mac
+      - run: npm run build && npx electron-builder --mac --publish never
       - uses: actions/upload-artifact@v4
         with:
           name: ganakam-mac-${{ github.sha }}
